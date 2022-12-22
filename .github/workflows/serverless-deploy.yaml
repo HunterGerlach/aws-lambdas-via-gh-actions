@@ -1,0 +1,18 @@
+# .github/workflows/serverless-deploy.yml
+name: Deploy Serverless Application
+on: [push]
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: aws/aws-sam-cli-deploy-action@v1
+      with:
+        region: us-east-1
+        stack-name: my-serverless-application
+        template-file: template.yaml
+        capabilities: CAPABILITY_IAM
+        role-arn: ${{ secrets.AWS_ROLE_ARN }}
+        profile: ${{ secrets.AWS_PROFILE }}
+
